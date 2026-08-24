@@ -1,0 +1,30 @@
+# Generated runtime data
+/logs/
+/output/
+/reports/
+/work/
+
+# Terraform local data
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+
+# Private operational configuration
+/config/environments.conf
+/config/modularization.conf
+/examples/demo/.demo-state/
+/tf-importer-demo-iac/
+/aws-automation-admin_accessKeys.csv
+/aws-automation-admin_accessKeys.csv:Zone.Identifier
+/*.bundle
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store

@@ -1,0 +1,18 @@
+# Downstream IaC project, relative to the tf-importer project root.
+DESTINATION_PROJECT_DIR=../<destination-project>
+
+# Destination project template, relative to the tf-importer project root.
+DESTINATION_TEMPLATE_DIR=templates/destination
+
+# Module mapping file, relative to DESTINATION_PROJECT_DIR.
+MODULE_MAP_FILE=config/resource_module_map.json
+
+# Root-module settings.
+COST_CENTER=<cost-center>
+TAGS_MODULE_SOURCE=../../../tag
+TERRAFORM_VERSION_CONSTRAINT=>= 1.5.0, < 2.0.0
+AWS_PROVIDER_VERSION_CONSTRAINT=>= 6.54.0, < 7.0.0
+
+# Remote state settings.
+STATE_BUCKET=<terraform-state-bucket>
+STATE_KEY_PREFIX=<terraform-state-prefix>

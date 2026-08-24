@@ -1,0 +1,30 @@
+[
+  {
+    "pattern": ":config:.*:config-rule/",
+    "reason": "Gerenciado por Control Tower / Conformance Packs"
+  },
+  {
+    "pattern": ":config:.*:conformance-pack/",
+    "reason": "Gerenciado por Control Tower"
+  },
+  {
+    "pattern": ":config:.*:organization-config-rule/",
+    "reason": "Gerenciado por Control Tower"
+  },
+  {
+    "pattern": ":cloudformation:.*:stack/StackSet-",
+    "reason": "Gerenciado por Control Tower StackSets"
+  },
+  {
+    "pattern": ":iam::.*:role/aws-service-role/",
+    "reason": "Service-linked role, gerenciada pela AWS"
+  },
+  {
+    "pattern": ":ssm:.*:session/",
+    "reason": "Ephemeral Session Manager session; not declarative infrastructure"
+  },
+  {
+    "pattern": ":config:.*:aggregation-authorization/",
+    "reason": "Managed by Control Tower (AWS Config aggregation)"
+  }
+]

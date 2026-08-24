@@ -1,0 +1,32 @@
+# Project name used to organize generated files.
+PROJECT_NAME=<project-name>
+
+# Single AWS region used for discovery and Terraform operations.
+PROJECT_REGION=<aws-region>
+
+# Optional comma-separated environments that also use Resource Explorer.
+# Keep empty unless the account has an indexed Resource Explorer view.
+RESOURCE_EXPLORER_ENVIRONMENTS=
+
+# Environment-to-expected-account mapping.
+DEV_ACCOUNT_ID=<account-id>
+QA_ACCOUNT_ID=<account-id>
+PRD_ACCOUNT_ID=<account-id>
+
+# Optional multi-account registry for the account/environment layout.
+# ACCOUNT_*_ID values are AWS account IDs; profiles refer to local AWS CLI
+# profiles. Never place access keys, secret keys, sessions, or passwords here.
+# Keep the account key neutral; it is used in terraform/<account>/<environment>.
+ACCOUNT_1_KEY=<account-key>
+ACCOUNT_1_ID=<account-id>
+ACCOUNT_1_PROFILE=<aws-profile>
+ACCOUNT_1_ENVIRONMENTS=dev,qa,prd
+ACCOUNT_1_RESOURCE_EXPLORER=false
+# Optional overrides; when omitted, modularization.conf defaults apply.
+ACCOUNT_1_STATE_BUCKET=<state-bucket>
+ACCOUNT_1_STATE_KEY_PREFIX=<state-key-prefix>
+ACCOUNT_1_COST_CENTER=<cost-center>
+# ACCOUNT_1_TAGS_MODULE_SOURCE=<relative-module-source>
+
+# Add ACCOUNT_2_*, ACCOUNT_3_*, ... for additional accounts. An account may
+# list only the environments that are valid for it.

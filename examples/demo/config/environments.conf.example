@@ -1,0 +1,10 @@
+PROJECT_NAME=tf-importer-demo
+PROJECT_REGION=<aws-region>
+RESOURCE_EXPLORER_ENVIRONMENTS=
+ACCOUNT_1_KEY=demo-account
+ACCOUNT_1_ID=<account-id>
+ACCOUNT_1_PROFILE=<temporary-credential-profile>
+ACCOUNT_1_ENVIRONMENTS=demo
+ACCOUNT_1_RESOURCE_EXPLORER=false
+DESTINATION_PROJECT_DIR=../tf-importer-demo-iac
+DESTINATION_TEMPLATE_DIR=templates/destination

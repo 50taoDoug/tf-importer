@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-labelledby="title description">
+  <title id="title">tf-importer sanitized adoption workflow demonstration</title>
+  <desc id="description">A 40-second fictional terminal demonstration of validation, discovery, analysis, generation, modularization, and an import-only Terraform plan.</desc>
+  <style>
+    .window { fill: #0d1117; stroke: #30363d; stroke-width: 2; }
+    .bar { fill: #161b22; }
+    .text { fill: #c9d1d9; font: 17px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .small { font-size: 15px; }
+    .muted { fill: #8b949e; }
+    .green { fill: #3fb950; }
+    .blue { fill: #58a6ff; }
+    .yellow { fill: #d29922; }
+    .phase-one { animation: phase-one 40s infinite; }
+    .phase-two { opacity: 0; animation: phase-two 40s infinite; }
+    .cursor { animation: blink 1s steps(2, start) infinite; }
+    @keyframes phase-one {
+      0%, 44% { opacity: 1; }
+      49%, 100% { opacity: 0; }
+    }
+    @keyframes phase-two {
+      0%, 46% { opacity: 0; }
+      51%, 95% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+  </style>
+
+  <rect class="window" x="10" y="10" width="940" height="520" rx="14"/>
+  <path class="bar" d="M24 10h912a14 14 0 0 1 14 14v46H10V24A14 14 0 0 1 24 10z"/>
+  <circle cx="40" cy="40" r="8" fill="#f85149"/>
+  <circle cx="66" cy="40" r="8" fill="#d29922"/>
+  <circle cx="92" cy="40" r="8" fill="#3fb950"/>
+  <text class="text muted" x="342" y="47">tf-importer — sanitized demo</text>
+  <text class="text small yellow" x="642" y="47">FICTIONAL DATA</text>
+
+  <g class="phase-one">
+    <text class="text yellow" x="38" y="106">SANITIZED DEMONSTRATION — FICTIONAL DATA</text>
+    <text class="text green" x="38" y="154">$</text>
+    <text class="text" x="62" y="154">make pipeline ACCOUNT=example-platform-prod ENV=prd</text>
+    <text class="text green" x="38" y="210">✓</text>
+    <text class="text" x="70" y="210">Environment prerequisites validated</text>
+    <text class="text green" x="38" y="258">✓</text>
+    <text class="text" x="70" y="258">AWS account and region boundaries validated</text>
+    <text class="text green" x="38" y="306">✓</text>
+    <text class="text" x="70" y="306">Regional resources discovered and classified: 257</text>
+    <text class="text green" x="38" y="354">✓</text>
+    <text class="text" x="70" y="354">Dependencies analyzed and reconciled</text>
+    <text class="text green" x="38" y="402">✓</text>
+    <text class="text" x="70" y="402">Import blocks and Terraform configuration generated</text>
+    <text class="text muted" x="38" y="472">Discover → Validate → Analyze → Generate</text>
+  </g>
+
+  <g class="phase-two">
+    <text class="text green" x="38" y="106">✓</text>
+    <text class="text" x="70" y="106">Category roots modularized progressively</text>
+    <text class="text green" x="38" y="154">✓</text>
+    <text class="text" x="70" y="154">Unmapped resources preserved as native Terraform</text>
+    <text class="text green" x="38" y="202">✓</text>
+    <text class="text" x="70" y="202">Source, imports, and destination fully reconciled</text>
+    <text class="text blue" x="38" y="274">Import only:</text>
+    <text class="text" x="170" y="274">257 to import</text>
+    <text class="text blue" x="38" y="322">Plan:</text>
+    <text class="text green" x="105" y="322">0 to add, 0 to change, 0 to destroy</text>
+    <text class="text yellow" x="38" y="390">Ready for manual review</text>
+    <text class="text" x="38" y="438">terraform apply was not executed</text>
+    <rect class="cursor" x="405" y="419" width="11" height="23" fill="#c9d1d9"/>
+    <text class="text muted" x="38" y="490">Modularize → Validate Plan</text>
+  </g>
+</svg>

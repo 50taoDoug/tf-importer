@@ -1,0 +1,11 @@
+variable "container_definitions" { type = string }
+variable "cpu" { type = string }
+variable "enable_fault_injection" { type = bool }
+variable "execution_role_arn" { type = string }
+variable "family" { type = string }
+variable "memory" { type = string }
+variable "network_mode" { type = string }
+variable "region" { type = string }
+variable "requires_compatibilities" { type = set(string) }
+variable "tags" { type = map(string) }
+variable "track_latest" { type = bool }

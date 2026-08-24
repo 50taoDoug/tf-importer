@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+BASE_DIR="$(cd "$(dirname "$0")" && pwd)"
+export PROJECT_ROOT="$BASE_DIR"
+
+source "${PROJECT_ROOT}/scripts/core/bootstrap.sh"
+
+echo "tf-importer $(get_version)"
+echo
+
+cmd="${1:-}"
+shift || true
+
+if [[ -z "$cmd" ]]; then
+    cmd="help"
+fi
+
+dispatch "$cmd" "$@"

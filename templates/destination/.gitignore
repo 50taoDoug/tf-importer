@@ -1,0 +1,59 @@
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+
+# Logs
+*.log
+
+# Inventory output
+inventory/*.json
+reports/*.json
+output/*.json
+terraform/generated/
+/reports/
+
+# OS
+.DS_Store
+
+.venv/
+__pycache__/
+*.pyc
+.idea/
+.vscode/
+/outputs/
+/logs/
+.DS_Store
+.idea/
+
+
+# Multi-ambiente (dados gerados, nunca versionar)
+output/*/discovery_all.json
+terraform/environments/*/auto_generated.tf
+terraform/environments/*/auto_generated.tf.bak.*
+terraform/environments/*/imports_generated.tf
+terraform/environments/*/lambda_code/
+terraform/environments/*/.terraform/
+terraform/environments/*/.terraform.lock.hcl
+terraform/environments/*/terraform.tfstate*
+terraform/environments/*/plan_generate.log
+terraform/environments/*/plan_check.log
+terraform/environments/*/resources/
+/reports/*/
+
+# Split por categoria (nível 2) — mesmo conteúdo gerado, mesma regra
+terraform/environments/*/*/main.tf
+terraform/environments/*/*/imports_generated.tf
+terraform/environments/*/*/.terraform/
+terraform/environments/*/*/.terraform.lock.hcl
+terraform/environments/*/*/terraform.tfstate*
+
+# Generated migration snapshots and reports
+terraform/**/lambda_code/
+terraform/**/modularization_report.json
+
+# tf-importer account output is private by default.
+# Publication is always an explicit user decision (`git add -f <path>`).
+/terraform/
+/docs/inventory/

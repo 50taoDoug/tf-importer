@@ -1,0 +1,381 @@
+[
+  {
+    "pattern": ":ec2:.*:instance/",
+    "types": [
+      "aws_instance"
+    ]
+  },
+  {
+    "pattern": ":ec2:.*:security-group/",
+    "types": [
+      "aws_security_group"
+    ]
+  },
+  {
+    "pattern": ":ec2:.*:vpc-endpoint/",
+    "types": [
+      "aws_vpc_endpoint"
+    ]
+  },
+  {
+    "pattern": ":ec2:.*:vpc/",
+    "types": [
+      "aws_vpc"
+    ]
+  },
+  {
+    "pattern": ":ec2:.*:subnet/",
+    "types": [
+      "aws_subnet"
+    ]
+  },
+  {
+    "pattern": ":ec2:.*:volume/",
+    "types": [
+      "aws_ebs_volume"
+    ]
+  },
+  {
+    "pattern": ":ec2:.*:network-interface/",
+    "types": [
+      "aws_network_interface"
+    ]
+  },
+  {
+    "pattern": ":ec2:.*:natgateway/",
+    "types": [
+      "aws_nat_gateway"
+    ]
+  },
+  {
+    "pattern": ":ec2:.*:internet-gateway/",
+    "types": [
+      "aws_internet_gateway"
+    ]
+  },
+  {
+    "pattern": ":ec2:.*:route-table/",
+    "types": [
+      "aws_route_table"
+    ]
+  },
+  {
+    "pattern": ":ec2:.*:elastic-ip/",
+    "types": [
+      "aws_eip"
+    ]
+  },
+  {
+    "pattern": ":ec2:.*:key-pair/",
+    "types": [
+      "aws_key_pair"
+    ]
+  },
+  {
+    "pattern": ":ec2:.*:network-acl/",
+    "types": [
+      "aws_network_acl"
+    ]
+  },
+  {
+    "pattern": ":ec2:.*:dhcp-options/",
+    "types": [
+      "aws_vpc_dhcp_options"
+    ]
+  },
+  {
+    "pattern": ":ec2:.*:transit-gateway-attachment/",
+    "types": [
+      "aws_ec2_transit_gateway_vpc_attachment"
+    ]
+  },
+  {
+    "pattern": ":ec2:.*:transit-gateway/",
+    "types": [
+      "aws_ec2_transit_gateway"
+    ]
+  },
+  {
+    "pattern": ":ec2:.*:vpn-gateway/",
+    "types": [
+      "aws_vpn_gateway"
+    ]
+  },
+  {
+    "pattern": ":ec2:.*:customer-gateway/",
+    "types": [
+      "aws_customer_gateway"
+    ]
+  },
+  {
+    "pattern": ":ec2:.*:vpn-connection/",
+    "types": [
+      "aws_vpn_connection"
+    ]
+  },
+  {
+    "pattern": ":ecs:.*:cluster/",
+    "types": [
+      "aws_ecs_cluster"
+    ]
+  },
+  {
+    "pattern": ":ecs:.*:service/",
+    "types": [
+      "aws_ecs_service"
+    ]
+  },
+  {
+    "pattern": ":ecs:.*:task-definition/",
+    "types": [
+      "aws_ecs_task_definition"
+    ]
+  },
+  {
+    "pattern": ":ecs:.*:capacity-provider/",
+    "types": [
+      "aws_ecs_capacity_provider"
+    ]
+  },
+  {
+    "pattern": ":ssm:.*:parameter/",
+    "types": [
+      "aws_ssm_parameter"
+    ]
+  },
+  {
+    "pattern": ":ssm:.*:document/",
+    "types": [
+      "aws_ssm_document"
+    ]
+  },
+  {
+    "pattern": ":ssm:.*:maintenancewindow/",
+    "types": [
+      "aws_ssm_maintenance_window"
+    ]
+  },
+  {
+    "pattern": ":ssm:.*:association/",
+    "types": [
+      "aws_ssm_association"
+    ]
+  },
+  {
+    "pattern": ":ssm:.*:patchbaseline/",
+    "types": [
+      "aws_ssm_patch_baseline"
+    ]
+  },
+  {
+    "pattern": ":lambda:.*:function:",
+    "types": [
+      "aws_lambda_function"
+    ]
+  },
+  {
+    "pattern": ":lambda:.*:layer:",
+    "types": [
+      "aws_lambda_layer_version"
+    ]
+  },
+  {
+    "pattern": ":lambda:.*:event-source-mapping:",
+    "types": [
+      "aws_lambda_event_source_mapping"
+    ]
+  },
+  {
+    "pattern": ":logs:.*:log-group:",
+    "types": [
+      "aws_cloudwatch_log_group"
+    ]
+  },
+  {
+    "pattern": ":elasticloadbalancing:.*:loadbalancer/app/",
+    "types": [
+      "aws_lb"
+    ]
+  },
+  {
+    "pattern": ":elasticloadbalancing:.*:loadbalancer/net/",
+    "types": [
+      "aws_lb"
+    ]
+  },
+  {
+    "pattern": ":elasticloadbalancing:.*:loadbalancer/[^/]+$",
+    "types": [
+      "aws_elb"
+    ]
+  },
+  {
+    "pattern": ":elasticloadbalancing:.*:targetgroup/",
+    "types": [
+      "aws_lb_target_group"
+    ]
+  },
+  {
+    "pattern": ":elasticloadbalancing:.*:listener/",
+    "types": [
+      "aws_lb_listener"
+    ]
+  },
+  {
+    "pattern": ":kms:.*:key/",
+    "types": [
+      "aws_kms_key"
+    ]
+  },
+  {
+    "pattern": ":kms:.*:alias/",
+    "types": [
+      "aws_kms_alias"
+    ]
+  },
+  {
+    "pattern": ":secretsmanager:.*:secret:",
+    "types": [
+      "aws_secretsmanager_secret"
+    ]
+  },
+  {
+    "pattern": "^arn:aws:s3:::",
+    "types": [
+      "aws_s3_bucket"
+    ]
+  },
+  {
+    "pattern": ":events:.*:rule/",
+    "types": [
+      "aws_cloudwatch_event_rule"
+    ]
+  },
+  {
+    "pattern": ":events:.*:event-bus/",
+    "types": [
+      "aws_cloudwatch_event_bus"
+    ]
+  },
+  {
+    "pattern": ":cloudformation:.*:stack/",
+    "types": [
+      "aws_cloudformation_stack"
+    ]
+  },
+  {
+    "pattern": ":iam::.*:role/",
+    "types": [
+      "aws_iam_role"
+    ]
+  },
+  {
+    "pattern": ":iam::.*:policy/",
+    "types": [
+      "aws_iam_policy"
+    ]
+  },
+  {
+    "pattern": ":iam::.*:user/",
+    "types": [
+      "aws_iam_user"
+    ]
+  },
+  {
+    "pattern": ":iam::.*:group/",
+    "types": [
+      "aws_iam_group"
+    ]
+  },
+  {
+    "pattern": ":iam::.*:instance-profile/",
+    "types": [
+      "aws_iam_instance_profile"
+    ]
+  },
+  {
+    "pattern": "^arn:aws:sns:[^:]+:[^:]+:[^:]+:[^:]+$",
+    "types": [
+      "aws_sns_topic_subscription"
+    ]
+  },
+  {
+    "pattern": "^arn:aws:sns:[^:]+:[^:]+:[^:]+$",
+    "types": [
+      "aws_sns_topic"
+    ]
+  },
+  {
+    "pattern": ":ecr:.*:repository/",
+    "types": [
+      "aws_ecr_repository"
+    ]
+  },
+  {
+    "pattern": ":backup:.*:backup-vault:",
+    "types": [
+      "aws_backup_vault"
+    ]
+  },
+  {
+    "pattern": ":backup:.*:backup-plan:",
+    "types": [
+      "aws_backup_plan"
+    ]
+  },
+  {
+    "pattern": ":apigateway:.*::/restapis/[^/]+/resources/[^/]+/methods/[^/]+$",
+    "types": [
+      "aws_api_gateway_method",
+      "aws_api_gateway_integration"
+    ]
+  },
+  {
+    "pattern": ":apigateway:.*::/restapis/[^/]+/resources/[^/]+$",
+    "types": [
+      "aws_api_gateway_resource"
+    ]
+  },
+  {
+    "pattern": ":apigateway:.*::/restapis/[^/]+/deployments/[^/]+$",
+    "types": [
+      "aws_api_gateway_deployment"
+    ]
+  },
+  {
+    "pattern": ":apigateway:.*::/restapis/[^/]+/stages/[^/]+$",
+    "types": [
+      "aws_api_gateway_stage"
+    ]
+  },
+  {
+    "pattern": ":apigateway:.*::/restapis/[^/]+$",
+    "types": [
+      "aws_api_gateway_rest_api"
+    ]
+  },
+  {
+    "pattern": ":apigateway:.*::/vpclinks/[^/]+$",
+    "types": [
+      "aws_api_gateway_vpc_link"
+    ]
+  },
+  {
+    "pattern": ":apigateway:.*::/domainnames/[^/]+$",
+    "types": [
+      "aws_api_gateway_domain_name"
+    ]
+  },
+  {
+    "pattern": ":ec2:.*:vpc-endpoint-service/",
+    "types": [
+      "aws_vpc_endpoint_service"
+    ]
+  },
+  {
+    "pattern": ":ec2:.*:vpc-flow-log/",
+    "types": [
+      "aws_flow_log"
+    ]
+  }
+]

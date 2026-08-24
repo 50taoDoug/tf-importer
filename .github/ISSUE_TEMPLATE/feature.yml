@@ -1,0 +1,41 @@
+name: Feature request
+description: Propose a product improvement without weakening safety boundaries.
+title: "feat: "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use fictitious examples only. Requests must preserve the read-only AWS,
+        explicit-region, account-validation, import-only, and no-apply contracts.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What user problem should be solved?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: Describe the desired outcome without private account context.
+    validations:
+      required: true
+  - type: textarea
+    id: compatibility
+    attributes:
+      label: Compatibility and safety impact
+      description: Explain provider, Terraform, AWS coverage, and acceptance-test implications.
+    validations:
+      required: true
+  - type: checkboxes
+    id: contract
+    attributes:
+      label: Contract confirmation
+      options:
+        - label: The proposal does not add terraform apply or weaken the import-only gate.
+          required: true
+        - label: The request contains no credentials, real identifiers, runtime artifacts, or private paths.
+          required: true

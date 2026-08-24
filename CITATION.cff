@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use tf-importer, please cite it using these metadata."
+title: "tf-importer"
+abstract: "Deterministic discovery and Terraform import generation for existing AWS infrastructure."
+authors:
+  - family-names: "Fernandes"
+    given-names: "Douglas"
+    email: "191608882+50taoDoug@users.noreply.github.com"
+version: 1.0.0
+date-released: 2026-07-29
+url: "https://github.com/50taoDoug/tf-importer"
+repository-code: "https://github.com/50taoDoug/tf-importer"
+license: Apache-2.0
+type: software

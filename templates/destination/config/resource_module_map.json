@@ -1,0 +1,1040 @@
+{
+  "schema_version": 2,
+  "resource_types": {
+    "aws_s3_bucket": {
+      "module_source": "../../../modules/s3/simples",
+      "unified_module_source": "../../modules/s3/simples",
+      "import_target": "aws_s3_bucket.this",
+      "name_fields": ["bucket"],
+      "outputs": ["id", "arn"],
+      "identity_output": "id",
+      "reference_consumers": ["aws_cloudformation_stack"],
+      "variables": {
+        "bucket_name": {"source": "bucket"},
+        "tags": {"source": "tags", "tag_policy": "shared_exact"}
+      }
+    },
+    "aws_iam_policy": {
+      "module_source": "../../../modules/iam/policy",
+      "unified_module_source": "../../modules/iam/policy",
+      "import_target": "aws_iam_policy.this",
+      "name_fields": ["name", "description"],
+      "outputs": ["arn"],
+      "variables": {
+        "name": {"source": "name"},
+        "description": {"source": "description"},
+        "path": {"source": "path"},
+        "policy_json": {"source": "policy"},
+        "tags": {"source": "tags", "tag_policy": "shared_exact"}
+      }
+    },
+    "aws_iam_instance_profile": {
+      "module_source": "../../../modules/iam/instance-profile",
+      "unified_module_source": "../../modules/iam/instance-profile",
+      "import_target": "aws_iam_instance_profile.this",
+      "name_fields": ["name"],
+      "outputs": ["arn"],
+      "variables": {
+        "name": {"source": "name"},
+        "role": {"source": "role"},
+        "tags": {"source": "tags", "tag_policy": "shared_exact"}
+      }
+    },
+    "aws_kms_key": {
+      "module_source": "../../../modules/kms/key",
+      "unified_module_source": "../../modules/kms/key",
+      "import_target": "aws_kms_key.this",
+      "name_fields": ["description"],
+      "outputs": ["id", "arn"],
+      "identity_output": "id",
+      "identity_aliases": [
+        {
+          "matcher": "arn_suffix",
+          "output": "arn"
+        }
+      ],
+      "reference_consumers": [
+        "aws_backup_vault",
+        "aws_lambda_function"
+      ],
+      "variables": {
+        "description": {"source": "description"},
+        "policy_json": {"source": "policy"},
+        "enable_key_rotation": {"source": "enable_key_rotation"},
+        "bypass_policy_lockout_safety_check": {
+          "source": "bypass_policy_lockout_safety_check"
+        },
+        "tags": {"source": "tags", "tag_policy": "shared_exact"}
+      }
+    },
+    "aws_sns_topic": {
+      "module_source": "../../../modules/sns/topic",
+      "unified_module_source": "../../modules/sns/topic",
+      "import_target": "aws_sns_topic.this",
+      "name_fields": ["name"],
+      "outputs": ["arn"],
+      "identity_output": "arn",
+      "reference_consumers": ["aws_lambda_function"],
+      "variables": {
+        "name": {"source": "name"},
+        "display_name": {"source": "display_name"},
+        "kms_master_key_id": {
+          "source": "kms_master_key_id",
+          "reference": {
+            "target_types": {
+              "aws_kms_key": "id"
+            }
+          }
+        },
+        "policy_json": {"source": "policy"},
+        "tracing_config": {"source": "tracing_config"},
+        "tags": {"source": "tags", "tag_policy": "shared_exact"}
+      }
+    },
+    "aws_ecr_repository": {
+      "module_source": "../../../modules/ecr/repository",
+      "unified_module_source": "../../modules/ecr/repository",
+      "import_target": "aws_ecr_repository.this",
+      "name_fields": ["name"],
+      "outputs": ["arn", "repository_url"],
+      "variables": {
+        "name": {"source": "name"},
+        "image_tag_mutability": {"source": "image_tag_mutability"},
+        "scan_on_push": {"source": "image_scanning_configuration.scan_on_push"},
+        "tags": {"source": "tags", "tag_policy": "shared_exact"}
+      }
+    },
+    "aws_secretsmanager_secret": {
+      "module_source": "../../../modules/secretsmanager/secret",
+      "unified_module_source": "../../modules/secretsmanager/secret",
+      "import_target": "aws_secretsmanager_secret.this",
+      "name_fields": ["name", "description"],
+      "outputs": ["arn"],
+      "identity_output": "arn",
+      "reference_consumers": ["aws_ecs_task_definition"],
+      "variables": {
+        "name": {"source": "name"},
+        "description": {"source": "description"},
+        "kms_key_id": {
+          "source": "kms_key_id",
+          "reference": {"target_types": {"aws_kms_key": "arn"}}
+        },
+        "tags": {"source": "tags", "tag_policy": "shared_exact"}
+      }
+    },
+    "aws_ssm_parameter": {
+      "module_source": "../../../modules/ssm/parameter",
+      "unified_module_source": "../../modules/ssm/parameter",
+      "import_target": "aws_ssm_parameter.this",
+      "name_fields": ["name"],
+      "outputs": ["arn", "name"],
+      "identity_output": "name",
+      "reference_consumers": ["aws_cloudformation_stack"],
+      "variables": {
+        "name": {"source": "name"},
+        "description": {"source": "description"},
+        "type": {"source": "type"},
+        "value": {"source": "value"},
+        "tier": {"source": "tier"},
+        "data_type": {"source": "data_type"},
+        "allowed_pattern": {"source": "allowed_pattern"},
+        "overwrite": {"source": "overwrite"},
+        "tags": {"source": "tags", "tag_policy": "shared_exact"}
+      }
+    },
+    "aws_cloudwatch_log_group": {
+      "module_source": "../../../modules/logs/log-group",
+      "unified_module_source": "../../modules/logs/log-group",
+      "import_target": "aws_cloudwatch_log_group.this",
+      "name_fields": ["name"],
+      "outputs": ["arn", "name"],
+      "identity_output": "name",
+      "reference_consumers": [
+        "aws_ecs_task_definition",
+        "aws_lambda_function"
+      ],
+      "variables": {
+        "name": {"source": "name"},
+        "retention_in_days": {"source": "retention_in_days"},
+        "kms_key_id": {"source": "kms_key_id"},
+        "log_group_class": {"source": "log_group_class"},
+        "deletion_protection_enabled": {
+          "source": "deletion_protection_enabled"
+        },
+        "skip_destroy": {"source": "skip_destroy"},
+        "tags": {"source": "tags", "tag_policy": "shared_exact"}
+      }
+    },
+    "aws_vpc": {
+      "module_source": "../../../modules/network/vpc",
+      "unified_module_source": "../../modules/network/vpc",
+      "import_target": "aws_vpc.this",
+      "name_fields": ["cidr_block"],
+      "outputs": ["id", "arn", "cidr_block"],
+      "identity_output": "id",
+      "reference_consumers": [
+        "aws_ec2_transit_gateway_vpc_attachment",
+        "aws_flow_log",
+        "aws_internet_gateway",
+        "aws_route_table",
+        "aws_security_group",
+        "aws_ssm_parameter",
+        "aws_subnet",
+        "aws_vpc_endpoint"
+      ],
+      "variables": {
+        "cidr_block": {"source": "cidr_block"},
+        "instance_tenancy": {"source": "instance_tenancy"},
+        "assign_generated_ipv6_cidr_block": {
+          "source": "assign_generated_ipv6_cidr_block"
+        },
+        "enable_dns_support": {"source": "enable_dns_support"},
+        "enable_dns_hostnames": {"source": "enable_dns_hostnames"},
+        "enable_network_address_usage_metrics": {
+          "source": "enable_network_address_usage_metrics"
+        },
+        "tags": {"source": "tags", "tag_policy": "shared_exact"}
+      }
+    },
+    "aws_subnet": {
+      "module_source": "../../../modules/network/subnet",
+      "unified_module_source": "../../modules/network/subnet",
+      "import_target": "aws_subnet.this",
+      "name_fields": ["cidr_block"],
+      "outputs": ["id", "arn", "cidr_block"],
+      "identity_output": "id",
+      "reference_consumers": [
+        "aws_default_network_acl",
+        "aws_ec2_transit_gateway_vpc_attachment",
+        "aws_ecs_service",
+        "aws_lb",
+        "aws_ssm_parameter",
+        "aws_vpc_endpoint"
+      ],
+      "variables": {
+        "vpc_id": {
+          "source": "vpc_id",
+          "reference": {
+            "target_types": {
+              "aws_vpc": "id"
+            }
+          }
+        },
+        "cidr_block": {"source": "cidr_block"},
+        "availability_zone": {"source": "availability_zone"},
+        "map_public_ip_on_launch": {"source": "map_public_ip_on_launch"},
+        "assign_ipv6_address_on_creation": {
+          "source": "assign_ipv6_address_on_creation"
+        },
+        "enable_dns64": {"source": "enable_dns64"},
+        "private_dns_hostname_type_on_launch": {
+          "source": "private_dns_hostname_type_on_launch"
+        },
+        "enable_resource_name_dns_a_record_on_launch": {
+          "source": "enable_resource_name_dns_a_record_on_launch"
+        },
+        "enable_resource_name_dns_aaaa_record_on_launch": {
+          "source": "enable_resource_name_dns_aaaa_record_on_launch"
+        },
+        "ipv6_native": {"source": "ipv6_native"},
+        "tags": {"source": "tags", "tag_policy": "shared_exact"}
+      }
+    },
+    "aws_internet_gateway": {
+      "module_source": "../../../modules/network/internet-gateway",
+      "unified_module_source": "../../modules/network/internet-gateway",
+      "import_target": "aws_internet_gateway.this",
+      "name_fields": ["vpc_id"],
+      "outputs": ["id", "arn"],
+      "identity_output": "id",
+      "reference_consumers": ["aws_route_table"],
+      "variables": {
+        "vpc_id": {
+          "source": "vpc_id",
+          "reference": {
+            "target_types": {
+              "aws_vpc": "id"
+            }
+          }
+        },
+        "tags": {"source": "tags", "tag_policy": "shared_exact"}
+      }
+    },
+    "aws_vpc_dhcp_options": {
+      "module_source": "../../../modules/network/dhcp-options",
+      "unified_module_source": "../../modules/network/dhcp-options",
+      "import_target": "aws_vpc_dhcp_options.this",
+      "name_fields": ["domain_name"],
+      "outputs": ["id", "arn"],
+      "variables": {
+        "domain_name": {"source": "domain_name"},
+        "domain_name_servers": {"source": "domain_name_servers"},
+        "netbios_name_servers": {"source": "netbios_name_servers"},
+        "ntp_servers": {"source": "ntp_servers"},
+        "tags": {"source": "tags", "tag_policy": "shared_exact"}
+      }
+    },
+    "aws_cloudwatch_event_rule": {
+      "module_source": "../../../modules/events/rule",
+      "unified_module_source": "../../modules/events/rule",
+      "import_target": "aws_cloudwatch_event_rule.this",
+      "name_fields": ["name"],
+      "outputs": ["arn", "name"],
+      "identity_output": "name",
+      "variables": {
+        "name": {"source": "name"},
+        "description": {"source": "description"},
+        "event_bus_name": {"source": "event_bus_name"},
+        "event_pattern": {"source": "event_pattern"},
+        "force_destroy": {"source": "force_destroy"},
+        "role_arn": {"source": "role_arn"},
+        "schedule_expression": {"source": "schedule_expression"},
+        "state": {"source": "state"},
+        "tags": {"source": "tags", "tag_policy": "shared_exact"}
+      }
+    },
+    "aws_ecs_cluster": {
+      "module_source": "../../../modules/ecs/cluster",
+      "unified_module_source": "../../modules/ecs/cluster",
+      "import_target": "aws_ecs_cluster.this",
+      "name_fields": ["name"],
+      "outputs": ["arn", "id", "name"],
+      "identity_output": "name",
+      "identity_aliases": [
+        {"matcher": "arn_suffix", "output": "arn"}
+      ],
+      "reference_consumers": ["aws_ecs_service"],
+      "variables": {
+        "name": {"source": "name"},
+        "container_insights_name": {"source": "setting.name"},
+        "container_insights_value": {"source": "setting.value"},
+        "tags": {"source": "tags", "tag_policy": "shared_exact"}
+      }
+    },
+    "aws_ecs_service": {
+      "module_source": "../../../modules/ecs/service",
+      "unified_module_source": "../../modules/ecs/service",
+      "import_target": "aws_ecs_service.this",
+      "name_fields": ["name"],
+      "outputs": ["id", "name"],
+      "variables": {
+        "availability_zone_rebalancing": {
+          "source": "availability_zone_rebalancing"
+        },
+        "cluster": {
+          "source": "cluster",
+          "reference": {
+            "target_types": {
+              "aws_ecs_cluster": "arn"
+            }
+          }
+        },
+        "deployment_maximum_percent": {
+          "source": "deployment_maximum_percent"
+        },
+        "deployment_minimum_healthy_percent": {
+          "source": "deployment_minimum_healthy_percent"
+        },
+        "desired_count": {"source": "desired_count"},
+        "enable_ecs_managed_tags": {"source": "enable_ecs_managed_tags"},
+        "enable_execute_command": {"source": "enable_execute_command"},
+        "force_delete": {"source": "force_delete"},
+        "force_new_deployment": {"source": "force_new_deployment"},
+        "health_check_grace_period_seconds": {
+          "source": "health_check_grace_period_seconds"
+        },
+        "iam_role": {"source": "iam_role"},
+        "launch_type": {"source": "launch_type"},
+        "name": {"source": "name"},
+        "platform_version": {"source": "platform_version"},
+        "propagate_tags": {"source": "propagate_tags"},
+        "scheduling_strategy": {"source": "scheduling_strategy"},
+        "sigint_rollback": {"source": "sigint_rollback"},
+        "tags": {"source": "tags", "tag_policy": "shared_exact"},
+        "task_definition": {
+          "source": "task_definition",
+          "reference": {
+            "target_types": {
+              "aws_ecs_task_definition": "family_revision"
+            }
+          }
+        },
+        "triggers": {"source": "triggers"},
+        "wait_for_steady_state": {"source": "wait_for_steady_state"},
+        "deployment_circuit_breaker_enable": {
+          "source": "deployment_circuit_breaker.enable"
+        },
+        "deployment_circuit_breaker_rollback": {
+          "source": "deployment_circuit_breaker.rollback"
+        },
+        "deployment_bake_time_in_minutes": {
+          "source": "deployment_configuration.bake_time_in_minutes"
+        },
+        "deployment_strategy": {
+          "source": "deployment_configuration.strategy"
+        },
+        "deployment_controller_type": {
+          "source": "deployment_controller.type"
+        },
+        "load_balancer_container_name": {
+          "source": "load_balancer.container_name"
+        },
+        "load_balancer_container_port": {
+          "source": "load_balancer.container_port"
+        },
+        "load_balancer_elb_name": {
+          "source": "load_balancer.elb_name"
+        },
+        "load_balancer_target_group_arn": {
+          "source": "load_balancer.target_group_arn",
+          "reference": {
+            "target_types": {
+              "aws_lb_target_group": "arn"
+            }
+          }
+        },
+        "assign_public_ip": {
+          "source": "network_configuration.assign_public_ip"
+        },
+        "security_groups": {
+          "source": "network_configuration.security_groups",
+          "reference": {
+            "target_types": {
+              "aws_security_group": "id"
+            }
+          }
+        },
+        "subnets": {
+          "source": "network_configuration.subnets",
+          "reference": {
+            "target_types": {
+              "aws_subnet": "id"
+            }
+          }
+        }
+      }
+    },
+    "aws_lb_target_group": {
+      "module_source": "../../../modules/elb/target-group",
+      "unified_module_source": "../../modules/elb/target-group",
+      "import_target": "aws_lb_target_group.this",
+      "name_fields": ["name"],
+      "outputs": ["arn", "id", "name"],
+      "identity_output": "arn",
+      "reference_consumers": ["aws_ecs_service", "aws_lb_listener"],
+      "variables": {
+        "connection_termination": {"source": "connection_termination"},
+        "deregistration_delay": {"source": "deregistration_delay"},
+        "ip_address_type": {"source": "ip_address_type"},
+        "load_balancing_algorithm_type": {
+          "source": "load_balancing_algorithm_type"
+        },
+        "load_balancing_anomaly_mitigation": {
+          "source": "load_balancing_anomaly_mitigation"
+        },
+        "load_balancing_cross_zone_enabled": {
+          "source": "load_balancing_cross_zone_enabled"
+        },
+        "name": {"source": "name"},
+        "port": {"source": "port"},
+        "preserve_client_ip": {"source": "preserve_client_ip"},
+        "protocol": {"source": "protocol"},
+        "protocol_version": {"source": "protocol_version"},
+        "slow_start": {"source": "slow_start"},
+        "tags": {"source": "tags", "tag_policy": "shared_exact"},
+        "target_type": {"source": "target_type"},
+        "vpc_id": {
+          "source": "vpc_id",
+          "reference": {
+            "target_types": {
+              "aws_vpc": "id"
+            }
+          }
+        },
+        "health_check_enabled": {"source": "health_check.enabled"},
+        "health_check_healthy_threshold": {
+          "source": "health_check.healthy_threshold"
+        },
+        "health_check_interval": {"source": "health_check.interval"},
+        "health_check_matcher": {"source": "health_check.matcher"},
+        "health_check_path": {"source": "health_check.path"},
+        "health_check_port": {"source": "health_check.port"},
+        "health_check_protocol": {"source": "health_check.protocol"},
+        "health_check_timeout": {"source": "health_check.timeout"},
+        "health_check_unhealthy_threshold": {
+          "source": "health_check.unhealthy_threshold"
+        },
+        "dns_failover_minimum_count": {
+          "source": "dns_failover.minimum_healthy_targets_count"
+        },
+        "dns_failover_minimum_percentage": {
+          "source": "dns_failover.minimum_healthy_targets_percentage"
+        },
+        "unhealthy_routing_minimum_count": {
+          "source": "unhealthy_state_routing.minimum_healthy_targets_count"
+        },
+        "unhealthy_routing_minimum_percentage": {
+          "source": "unhealthy_state_routing.minimum_healthy_targets_percentage"
+        }
+      }
+    },
+    "aws_lb": {
+      "module_source": "../../../modules/elb/load-balancer",
+      "unified_module_source": "../../modules/elb/load-balancer",
+      "import_target": "aws_lb.this",
+      "name_fields": ["name"],
+      "outputs": ["arn", "dns_name", "id", "name", "zone_id"],
+      "identity_output": "arn",
+      "reference_consumers": [
+        "aws_lb_listener",
+        "aws_vpc_endpoint_service"
+      ],
+      "variables": {
+        "client_keep_alive": {"source": "client_keep_alive"},
+        "desync_mitigation_mode": {"source": "desync_mitigation_mode"},
+        "dns_record_client_routing_policy": {
+          "source": "dns_record_client_routing_policy"
+        },
+        "drop_invalid_header_fields": {
+          "source": "drop_invalid_header_fields"
+        },
+        "enable_cross_zone_load_balancing": {
+          "source": "enable_cross_zone_load_balancing"
+        },
+        "enable_deletion_protection": {
+          "source": "enable_deletion_protection"
+        },
+        "enable_http2": {"source": "enable_http2"},
+        "enable_prefix_for_ipv6_source_nat": {
+          "source": "enable_prefix_for_ipv6_source_nat"
+        },
+        "enable_tls_version_and_cipher_suite_headers": {
+          "source": "enable_tls_version_and_cipher_suite_headers"
+        },
+        "enable_waf_fail_open": {"source": "enable_waf_fail_open"},
+        "enable_xff_client_port": {"source": "enable_xff_client_port"},
+        "enable_zonal_shift": {"source": "enable_zonal_shift"},
+        "enforce_private_link_security_group_rules": {
+          "source": "enforce_security_group_inbound_rules_on_private_link_traffic"
+        },
+        "idle_timeout": {"source": "idle_timeout"},
+        "internal": {"source": "internal"},
+        "ip_address_type": {"source": "ip_address_type"},
+        "load_balancer_type": {"source": "load_balancer_type"},
+        "name": {"source": "name"},
+        "preserve_host_header": {"source": "preserve_host_header"},
+        "secondary_ips_auto_assigned_per_subnet": {
+          "source": "secondary_ips_auto_assigned_per_subnet"
+        },
+        "security_groups": {
+          "source": "security_groups",
+          "reference": {
+            "target_types": {
+              "aws_security_group": "id"
+            }
+          }
+        },
+        "subnets": {
+          "source": "subnets",
+          "reference": {
+            "target_types": {
+              "aws_subnet": "id"
+            }
+          }
+        },
+        "tags": {"source": "tags", "tag_policy": "shared_exact"},
+        "xff_header_processing_mode": {
+          "source": "xff_header_processing_mode"
+        },
+        "access_logs_bucket": {"source": "access_logs.bucket"},
+        "access_logs_enabled": {"source": "access_logs.enabled"},
+        "access_logs_prefix": {"source": "access_logs.prefix"},
+        "connection_logs_bucket": {"source": "connection_logs.bucket"},
+        "connection_logs_enabled": {"source": "connection_logs.enabled"},
+        "connection_logs_prefix": {"source": "connection_logs.prefix"},
+        "health_check_logs_bucket": {"source": "health_check_logs.bucket"},
+        "health_check_logs_enabled": {"source": "health_check_logs.enabled"},
+        "health_check_logs_prefix": {"source": "health_check_logs.prefix"}
+      }
+    },
+    "aws_lb_listener": {
+      "module_source": "../../../modules/elb/listener",
+      "unified_module_source": "../../modules/elb/listener",
+      "import_target": "aws_lb_listener.this",
+      "name_fields": ["load_balancer_arn", "port"],
+      "outputs": ["arn", "id"],
+      "identity_output": "arn",
+      "variables": {
+        "alpn_policy": {"source": "alpn_policy"},
+        "certificate_arn": {"source": "certificate_arn"},
+        "load_balancer_arn": {
+          "source": "load_balancer_arn",
+          "reference": {
+            "target_types": {
+              "aws_lb": "arn"
+            }
+          }
+        },
+        "port": {"source": "port"},
+        "protocol": {"source": "protocol"},
+        "routing_http_response_server_enabled": {
+          "source": "routing_http_response_server_enabled"
+        },
+        "tags": {"source": "tags", "tag_policy": "shared_exact"},
+        "tcp_idle_timeout_seconds": {
+          "source": "tcp_idle_timeout_seconds"
+        },
+        "default_action_order": {"source": "default_action.order"},
+        "default_action_target_group_arn": {
+          "source": "default_action.target_group_arn",
+          "reference": {
+            "target_types": {
+              "aws_lb_target_group": "arn"
+            }
+          }
+        },
+        "default_action_type": {"source": "default_action.type"},
+        "forward_target_group_arn": {
+          "source": "target_group.arn",
+          "reference": {
+            "target_types": {
+              "aws_lb_target_group": "arn"
+            }
+          }
+        },
+        "forward_stickiness_duration": {
+          "source": "stickiness.duration"
+        },
+        "forward_stickiness_enabled": {
+          "source": "stickiness.enabled"
+        },
+        "forward_target_group_weight": {
+          "source": "target_group.weight"
+        },
+        "fixed_response_content_type": {
+          "source": "fixed_response.content_type"
+        },
+        "fixed_response_message_body": {
+          "source": "fixed_response.message_body"
+        },
+        "fixed_response_status_code": {
+          "source": "fixed_response.status_code"
+        }
+      }
+    },
+    "aws_lambda_function": {
+      "module_source": "../../../modules/lambda/function",
+      "unified_module_source": "../../modules/lambda/function",
+      "import_target": "aws_lambda_function.this",
+      "name_fields": ["function_name"],
+      "outputs": ["arn", "id", "invoke_arn", "qualified_arn", "version"],
+      "identity_output": "id",
+      "variables": {
+        "architectures": {"source": "architectures"},
+        "code_sha256": {"source": "code_sha256"},
+        "description": {"source": "description"},
+        "filename": {"source": "filename"},
+        "function_name": {"source": "function_name"},
+        "handler": {"source": "handler"},
+        "kms_key_arn": {
+          "source": "kms_key_arn",
+          "reference": {
+            "target_types": {
+              "aws_kms_key": "arn"
+            }
+          }
+        },
+        "layers": {"source": "layers"},
+        "memory_size": {"source": "memory_size"},
+        "package_type": {"source": "package_type"},
+        "region": {"source": "region"},
+        "reserved_concurrent_executions": {
+          "source": "reserved_concurrent_executions"
+        },
+        "role": {"source": "role"},
+        "runtime": {"source": "runtime"},
+        "skip_destroy": {"source": "skip_destroy"},
+        "tags": {"source": "tags", "tag_policy": "shared_exact"},
+        "timeout": {"source": "timeout"},
+        "environment_variables": {"source": "environment.variables"},
+        "ephemeral_storage_size": {"source": "ephemeral_storage.size"},
+        "application_log_level": {
+          "source": "logging_config.application_log_level"
+        },
+        "log_format": {"source": "logging_config.log_format"},
+        "log_group": {"source": "logging_config.log_group"},
+        "system_log_level": {
+          "source": "logging_config.system_log_level"
+        },
+        "tracing_mode": {"source": "tracing_config.mode"}
+      }
+    },
+    "aws_backup_vault": {
+      "module_source": "../../../modules/backup/vault",
+      "unified_module_source": "../../modules/backup/vault",
+      "import_target": "aws_backup_vault.this",
+      "name_fields": ["name"],
+      "outputs": ["arn", "id", "name"],
+      "identity_output": "name",
+      "variables": {
+        "kms_key_arn": {
+          "source": "kms_key_arn",
+          "reference": {
+            "target_types": {
+              "aws_kms_key": "arn"
+            }
+          }
+        },
+        "name": {"source": "name"},
+        "region": {"source": "region"},
+        "tags": {"source": "tags", "tag_policy": "shared_exact"}
+      }
+    },
+    "aws_cloudformation_stack": {
+      "module_source": "../../../modules/cloudformation/stack",
+      "unified_module_source": "../../modules/cloudformation/stack",
+      "import_target": "aws_cloudformation_stack.this",
+      "name_fields": ["name"],
+      "outputs": ["id", "outputs"],
+      "identity_output": "id",
+      "variables": {
+        "capabilities": {"source": "capabilities"},
+        "disable_rollback": {"source": "disable_rollback"},
+        "name": {"source": "name"},
+        "parameters": {
+          "source": "parameters",
+          "reference": {
+            "target_types": {
+              "aws_s3_bucket": "id",
+              "aws_ssm_parameter": "name"
+            }
+          }
+        },
+        "region": {"source": "region"},
+        "tags": {"source": "tags", "tag_policy": "shared_exact"},
+        "template_body": {
+          "source": "template_body",
+          "reference": {
+            "target_types": {
+              "aws_s3_bucket": "id",
+              "aws_ssm_parameter": "name"
+            }
+          }
+        },
+        "timeout_in_minutes": {"source": "timeout_in_minutes"}
+      }
+    },
+    "aws_vpc_endpoint_service": {
+      "module_source": "../../../modules/network/endpoint-service",
+      "unified_module_source": "../../modules/network/endpoint-service",
+      "import_target": "aws_vpc_endpoint_service.this",
+      "name_fields": ["service_name"],
+      "outputs": ["id", "service_name"],
+      "identity_output": "id",
+      "variables": {
+        "acceptance_required": {"source": "acceptance_required"},
+        "allowed_principals": {"source": "allowed_principals"},
+        "network_load_balancer_arns": {
+          "source": "network_load_balancer_arns",
+          "reference": {
+            "target_types": {
+              "aws_lb": "arn"
+            }
+          }
+        },
+        "region": {"source": "region"},
+        "supported_ip_address_types": {
+          "source": "supported_ip_address_types"
+        },
+        "supported_regions": {"source": "supported_regions"},
+        "tags": {"source": "tags", "tag_policy": "shared_exact"}
+      }
+    },
+    "aws_flow_log": {
+      "module_source": "../../../modules/network/flow-log",
+      "unified_module_source": "../../modules/network/flow-log",
+      "import_target": "aws_flow_log.this",
+      "name_fields": ["log_destination"],
+      "outputs": ["arn", "id"],
+      "identity_output": "id",
+      "variables": {
+        "iam_role_arn": {"source": "iam_role_arn"},
+        "log_destination": {"source": "log_destination"},
+        "log_destination_type": {"source": "log_destination_type"},
+        "log_format": {"source": "log_format"},
+        "max_aggregation_interval": {
+          "source": "max_aggregation_interval"
+        },
+        "region": {"source": "region"},
+        "tags": {"source": "tags", "tag_policy": "shared_exact"},
+        "traffic_type": {"source": "traffic_type"},
+        "vpc_id": {
+          "source": "vpc_id",
+          "reference": {
+            "target_types": {
+              "aws_vpc": "id"
+            }
+          }
+        },
+        "destination_file_format": {
+          "source": "destination_options.file_format"
+        },
+        "hive_compatible_partitions": {
+          "source": "destination_options.hive_compatible_partitions"
+        },
+        "per_hour_partition": {
+          "source": "destination_options.per_hour_partition"
+        }
+      }
+    },
+    "aws_ec2_transit_gateway_vpc_attachment": {
+      "module_source": "../../../modules/network/transit-gateway-vpc-attachment",
+      "unified_module_source": "../../modules/network/transit-gateway-vpc-attachment",
+      "import_target": "aws_ec2_transit_gateway_vpc_attachment.this",
+      "name_fields": ["transit_gateway_id", "vpc_id"],
+      "outputs": ["id"],
+      "identity_output": "id",
+      "variables": {
+        "appliance_mode_support": {"source": "appliance_mode_support"},
+        "dns_support": {"source": "dns_support"},
+        "ipv6_support": {"source": "ipv6_support"},
+        "region": {"source": "region"},
+        "security_group_referencing_support": {
+          "source": "security_group_referencing_support"
+        },
+        "subnet_ids": {
+          "source": "subnet_ids",
+          "reference": {
+            "target_types": {
+              "aws_subnet": "id"
+            }
+          }
+        },
+        "tags": {"source": "tags", "tag_policy": "shared_exact"},
+        "default_route_table_association": {
+          "source": "transit_gateway_default_route_table_association"
+        },
+        "default_route_table_propagation": {
+          "source": "transit_gateway_default_route_table_propagation"
+        },
+        "transit_gateway_id": {"source": "transit_gateway_id"},
+        "vpc_id": {
+          "source": "vpc_id",
+          "reference": {
+            "target_types": {
+              "aws_vpc": "id"
+            }
+          }
+        }
+      }
+    },
+    "aws_eip": {
+      "module_source": "../../../modules/network/eip",
+      "unified_module_source": "../../modules/network/eip",
+      "import_target": "aws_eip.this",
+      "name_fields": ["network_border_group", "public_ipv4_pool"],
+      "outputs": ["allocation_id", "id", "public_ip"],
+      "identity_output": "id",
+      "variables": {
+        "domain": {"source": "domain"},
+        "network_border_group": {"source": "network_border_group"},
+        "public_ipv4_pool": {"source": "public_ipv4_pool"},
+        "region": {"source": "region"},
+        "tags": {"source": "tags", "tag_policy": "shared_exact"}
+      }
+    },
+    "aws_route_table": {
+      "module_source": "../../../modules/network/route-table",
+      "unified_module_source": "../../modules/network/route-table",
+      "import_target": "aws_route_table.this",
+      "name_fields": ["vpc_id"],
+      "outputs": ["id"],
+      "identity_output": "id",
+      "variables": {
+        "propagating_vgws": {"source": "propagating_vgws"},
+        "region": {"source": "region"},
+        "routes": {
+          "source": "route",
+          "reference": {
+            "target_types": {
+              "aws_internet_gateway": "id",
+              "aws_vpc_endpoint": "id"
+            }
+          }
+        },
+        "tags": {"source": "tags", "tag_policy": "shared_exact"},
+        "vpc_id": {
+          "source": "vpc_id",
+          "reference": {
+            "target_types": {
+              "aws_vpc": "id"
+            }
+          }
+        }
+      }
+    },
+    "aws_security_group": {
+      "module_source": "../../../modules/network/security-group",
+      "unified_module_source": "../../modules/network/security-group",
+      "import_target": "aws_security_group.this",
+      "name_fields": ["name"],
+      "outputs": ["arn", "id", "name"],
+      "identity_output": "id",
+      "reference_consumers": [
+        "aws_ecs_service",
+        "aws_lb",
+        "aws_vpc_endpoint"
+      ],
+      "variables": {
+        "description": {"source": "description"},
+        "egress": {"source": "egress"},
+        "ingress": {"source": "ingress"},
+        "name": {"source": "name"},
+        "region": {"source": "region"},
+        "revoke_rules_on_delete": {"source": "revoke_rules_on_delete"},
+        "tags": {"source": "tags", "tag_policy": "shared_exact"},
+        "vpc_id": {
+          "source": "vpc_id",
+          "reference": {
+            "target_types": {
+              "aws_vpc": "id"
+            }
+          }
+        }
+      }
+    },
+    "aws_vpc_endpoint": {
+      "module_source": "../../../modules/network/vpc-endpoint",
+      "unified_module_source": "../../modules/network/vpc-endpoint",
+      "import_target": "aws_vpc_endpoint.this",
+      "name_fields": ["service_name"],
+      "outputs": ["arn", "id"],
+      "identity_output": "id",
+      "variables": {
+        "ip_address_type": {"source": "ip_address_type"},
+        "policy": {"source": "policy"},
+        "private_dns_enabled": {"source": "private_dns_enabled"},
+        "region": {"source": "region"},
+        "route_table_ids": {
+          "source": "route_table_ids",
+          "reference": {
+            "target_types": {
+              "aws_route_table": "id"
+            }
+          }
+        },
+        "security_group_ids": {
+          "source": "security_group_ids",
+          "reference": {
+            "target_types": {
+              "aws_security_group": "id"
+            }
+          }
+        },
+        "service_name": {"source": "service_name"},
+        "service_region": {"source": "service_region"},
+        "subnet_ids": {
+          "source": "subnet_ids",
+          "reference": {
+            "target_types": {
+              "aws_subnet": "id"
+            }
+          }
+        },
+        "tags": {"source": "tags", "tag_policy": "shared_exact"},
+        "vpc_endpoint_type": {"source": "vpc_endpoint_type"},
+        "vpc_id": {
+          "source": "vpc_id",
+          "reference": {
+            "target_types": {
+              "aws_vpc": "id"
+            }
+          }
+        },
+        "dns_record_ip_type": {"source": "dns_options.dns_record_ip_type"},
+        "private_dns_only_for_inbound_resolver_endpoint": {
+          "source": "dns_options.private_dns_only_for_inbound_resolver_endpoint"
+        }
+      }
+    },
+    "aws_default_network_acl": {
+      "module_source": "../../../modules/network/default-network-acl",
+      "unified_module_source": "../../modules/network/default-network-acl",
+      "import_target": "aws_default_network_acl.this",
+      "name_fields": ["default_network_acl_id"],
+      "outputs": ["id"],
+      "identity_output": "id",
+      "variables": {
+        "default_network_acl_id": {"source": "default_network_acl_id"},
+        "region": {"source": "region"},
+        "subnet_ids": {
+          "source": "subnet_ids",
+          "reference": {
+            "target_types": {
+              "aws_subnet": "id"
+            }
+          }
+        },
+        "tags": {"source": "tags", "tag_policy": "shared_exact"},
+        "egress_action": {"source": "egress.action"},
+        "egress_cidr_block": {"source": "egress.cidr_block"},
+        "egress_from_port": {"source": "egress.from_port"},
+        "egress_icmp_code": {"source": "egress.icmp_code"},
+        "egress_icmp_type": {"source": "egress.icmp_type"},
+        "egress_ipv6_cidr_block": {"source": "egress.ipv6_cidr_block"},
+        "egress_protocol": {"source": "egress.protocol"},
+        "egress_rule_no": {"source": "egress.rule_no"},
+        "egress_to_port": {"source": "egress.to_port"},
+        "ingress_action": {"source": "ingress.action"},
+        "ingress_cidr_block": {"source": "ingress.cidr_block"},
+        "ingress_from_port": {"source": "ingress.from_port"},
+        "ingress_icmp_code": {"source": "ingress.icmp_code"},
+        "ingress_icmp_type": {"source": "ingress.icmp_type"},
+        "ingress_ipv6_cidr_block": {"source": "ingress.ipv6_cidr_block"},
+        "ingress_protocol": {"source": "ingress.protocol"},
+        "ingress_rule_no": {"source": "ingress.rule_no"},
+        "ingress_to_port": {"source": "ingress.to_port"}
+      }
+    },
+    "aws_ecs_task_definition": {
+      "module_source": "../../../modules/ecs/task-definition",
+      "unified_module_source": "../../modules/ecs/task-definition",
+      "import_target": "aws_ecs_task_definition.this",
+      "name_fields": ["family"],
+      "outputs": ["arn", "family", "family_revision", "revision"],
+      "identity_output": "family_revision",
+      "identity_aliases": [
+        {
+          "matcher": "import_arn_suffix",
+          "output": "family_revision"
+        }
+      ],
+      "reference_consumers": ["aws_ecs_service"],
+      "enabled_environments": ["prd"],
+      "latest_revision_per_family": true,
+      "variables": {
+        "container_definitions": {
+          "source": "container_definitions",
+          "reference": {
+            "target_types": {
+              "aws_cloudwatch_log_group": "name",
+              "aws_secretsmanager_secret": "arn"
+            }
+          }
+        },
+        "cpu": {"source": "cpu"},
+        "enable_fault_injection": {"source": "enable_fault_injection"},
+        "execution_role_arn": {"source": "execution_role_arn"},
+        "family": {"source": "family"},
+        "memory": {"source": "memory"},
+        "network_mode": {"source": "network_mode"},
+        "region": {"source": "region"},
+        "requires_compatibilities": {
+          "source": "requires_compatibilities"
+        },
+        "tags": {"source": "tags", "tag_policy": "shared_exact"},
+        "track_latest": {"source": "track_latest"}
+      }
+    }
+  }
+}
