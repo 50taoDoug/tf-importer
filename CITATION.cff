@@ -6,8 +6,8 @@ authors:
   - family-names: "Fernandes"
     given-names: "Douglas"
     email: "191608882+50taoDoug@users.noreply.github.com"
-version: 1.0.0
-date-released: 2026-07-29
+version: 1.0.1
+date-released: 2026-08-29
 url: "https://github.com/50taoDoug/tf-importer"
 repository-code: "https://github.com/50taoDoug/tf-importer"
 license: Apache-2.0

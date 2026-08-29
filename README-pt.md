@@ -13,6 +13,12 @@ reconciliação e validação dos planos Terraform.
 Ele lê a infraestrutura AWS existente e gera artefatos para sua adoção no
 Terraform. Ele nunca executa `terraform apply`.
 
+<p align="center">
+  <img src="docs/assets/tf-importer-overview.png"
+       alt="Fluxo do tf-importer da infraestrutura de nuvem existente por um gate de validação até o Terraform, com 13 imports e zero ações de add, change ou destroy"
+       width="900">
+</p>
+
 ```text
 AWS existente  →  Descobrir e classificar  →  Gerar e modularizar Terraform
                                                      ↓
@@ -183,6 +189,7 @@ completo de autoria está em [AUTHORS.md](AUTHORS.md).
 - [Guia de contribuição](CONTRIBUTING.md)
 - [Código de Conduta](CODE_OF_CONDUCT.md)
 - [Fluxo Git](docs/GIT_WORKFLOW.md)
+- [Apoie a continuidade do projeto](https://github.com/sponsors/50taoDoug)
 
 Use GitHub Issues para bugs e solicitações. Não divulgue questões de segurança
 publicamente.

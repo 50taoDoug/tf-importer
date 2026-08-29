@@ -11,14 +11,14 @@ a clean standalone checkout.
 
 ## Current version decision
 
-`v1.0.0` is an existing annotated tag. `main` contains functional and
-documentation corrections after that tag under `Unreleased`. `VERSION` remains
-`1.0.0` until the owner explicitly chooses whether to prepare `1.0.1`.
+The owner approved `v1.0.1` on 2026-08-29 to close Phase 1. The current sanitized
+public history contains no release tag, despite private records describing a tag
+on a superseded publication history. Do not recreate or move `v1.0.0` on the
+current history.
 
-Do not move `v1.0.0` or rewrite its history. If `1.0.1` is approved, update
-`VERSION` and close the changelog section in one reviewed release-preparation
-change; create the tag only after the exact synchronized commit passes every
-gate.
+`VERSION`, `CITATION.cff`, and the changelog are aligned at `1.0.1`. Create the
+annotated `v1.0.1` tag only after the exact synchronized commit passes every
+gate, then publish the corresponding GitHub Release without moving the tag.
 
 ## Offline gates
 
@@ -60,6 +60,6 @@ An accepted plan contains imports only and zero add, change, or destroy actions.
 
 ## Final approval gate
 
-Stop after presenting the reviewed diff, exact validation evidence, remaining
-risks, and the `1.0.0` versus `1.0.1` decision. The owner must separately approve
-each merge, tag, GitHub Release, visibility change, or external announcement.
+Stop after presenting the reviewed diff, exact validation evidence, and remaining
+risks. The owner must separately approve each merge, tag, GitHub Release,
+visibility change, or external announcement.

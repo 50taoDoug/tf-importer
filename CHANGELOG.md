@@ -4,8 +4,12 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-08-29
+
 ### Added
 
+- Added a validated project overview image and GitHub Sponsors discovery links
+  to the bilingual READMEs and repository funding metadata.
 - Added release-metadata, Markdown-link, tracked-content, and clean-checkout CI
   gates without AWS access or additional Python dependencies.
 - Added CODEOWNERS, GitHub Actions dependency updates, pull request guidance,
@@ -38,6 +42,8 @@ All notable changes to this project are documented in this file.
 
 ### Validation
 
+- Published the sanitized standalone repository after a fresh clone passed 91
+  tests and all 12 CI gates.
 - Completed a real 13-resource AWS demonstration with an import-only plan of
   13 imports, zero additions, zero changes, and zero destructions.
 - Completed manifest-scoped cleanup with zero exact, active-tagged, or named

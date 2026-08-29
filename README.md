@@ -13,6 +13,12 @@ plan validation.
 It reads existing AWS infrastructure and generates Terraform adoption
 artifacts. It never runs `terraform apply`.
 
+<p align="center">
+  <img src="docs/assets/tf-importer-overview.png"
+       alt="tf-importer flow from existing cloud infrastructure through a validation gate to Terraform, with 13 imports and zero add, change, or destroy actions"
+       width="900">
+</p>
+
 ```text
 Existing AWS  →  Discover and classify  →  Generate and modularize Terraform
                                                     ↓
@@ -180,6 +186,7 @@ complete author record is in [AUTHORS.md](AUTHORS.md).
 - [Contributing guide](CONTRIBUTING.md)
 - [Code of Conduct](CODE_OF_CONDUCT.md)
 - [Git workflow](docs/GIT_WORKFLOW.md)
+- [Sponsor continued development](https://github.com/sponsors/50taoDoug)
 
 Use GitHub Issues for bugs and feature requests. Do not disclose security
 issues publicly.

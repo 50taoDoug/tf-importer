@@ -11,14 +11,14 @@ standalone limpo.
 
 ## Decisão da versão atual
 
-`v1.0.0` é uma tag anotada existente. A `main` contém correções funcionais e
-documentais posteriores à tag na seção `Unreleased`. `VERSION` permanece em
-`1.0.0` até que o proprietário escolha explicitamente preparar ou não `1.0.1`.
+O proprietário aprovou `v1.0.1` em 2026-08-29 para encerrar a Fase 1. O histórico
+público sanitizado atual não contém uma tag de release, apesar de registros
+privados descreverem uma tag em um histórico de publicação substituído. Não
+recrie nem mova `v1.0.0` no histórico atual.
 
-Não mova `v1.0.0` nem reescreva seu histórico. Se `1.0.1` for aprovada, atualize
-`VERSION` e feche a seção do changelog em uma única mudança revisada de preparação;
-crie a tag somente depois que o commit exato sincronizado passar por todos os
-gates.
+`VERSION`, `CITATION.cff` e o changelog estão alinhados em `1.0.1`. Crie a tag
+anotada `v1.0.1` somente depois que o commit sincronizado exato passar por todos
+os gates; em seguida, publique a GitHub Release correspondente sem mover a tag.
 
 ## Gates offline
 
@@ -63,7 +63,6 @@ Um plano aceito contém somente imports e zero ações de add, change ou destroy
 
 ## Gate final de aprovação
 
-Pare depois de apresentar diff revisado, evidências exatas de validação, riscos
-restantes e a decisão entre `1.0.0` e `1.0.1`. O proprietário deve aprovar
-separadamente cada merge, tag, GitHub Release, mudança de visibilidade ou anúncio
-externo.
+Pare depois de apresentar o diff revisado, as evidências exatas de validação e os
+riscos restantes. O proprietário deve aprovar separadamente cada merge, tag,
+GitHub Release, mudança de visibilidade ou anúncio externo.
